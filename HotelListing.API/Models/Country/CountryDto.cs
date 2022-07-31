@@ -1,11 +1,10 @@
-﻿namespace HotelListing.API.Data
+﻿namespace HotelListing.API.Models.Country
 {
-    public class Country
+    public class CountryDto
     {
         public int Id { get; set; }
         public string Name { get; set; }
         public string ShortName { get; set; }
-        public virtual IList<Hotel> Hotels { get; set; }
-
+        public virtual List<HotelDto> Hotels { get; set; }
     }
 }
