@@ -10,11 +10,14 @@ using HotelListing.API.Contracts;
 using AutoMapper;
 using HotelListing.API.Models.Hotel;
 using HotelListing.API.Exceptions;
+using Microsoft.AspNetCore.Mvc.RazorPages;
+using HotelListing.API.Models;
 
 namespace HotelListing.API.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/v{version:apiVersion}/[controller]")]
     [ApiController]
+    [ApiVersion("1.0")]
     public class HotelsController : ControllerBase
     {
         private readonly IMapper _mapper;
@@ -27,7 +30,7 @@ namespace HotelListing.API.Controllers
         }
 
         // GET: api/Hotels
-        [HttpGet]
+        [HttpGet("GetAll")]
         public async Task<ActionResult<IEnumerable<HotelDto>>> GetHotels()
         {
             var hotels = await _hotelsRepository.GetAllAsync();
@@ -37,6 +40,14 @@ namespace HotelListing.API.Controllers
             }
             var records = _mapper.Map<List<HotelDto>>(hotels);
             return Ok(records);
+        }
+
+        // GET: api/Hotels/?StartIndex=0&PageSize=25&PageNumber=1
+        [HttpGet]
+        public async Task<ActionResult<PageResult<HotelDto>>> GetPagesHotels([FromQuery] QueryParameters queryParameters)
+        {
+            var pageHotelsResult = await _hotelsRepository.GetAllAsync<HotelDto>(queryParameters);
+            return Ok(pageHotelsResult);
         }
 
         // GET: api/Hotels/5
