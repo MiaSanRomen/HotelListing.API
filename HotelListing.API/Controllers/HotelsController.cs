@@ -9,6 +9,7 @@ using HotelListing.API.Data;
 using HotelListing.API.Contracts;
 using AutoMapper;
 using HotelListing.API.Models.Hotel;
+using HotelListing.API.Exceptions;
 
 namespace HotelListing.API.Controllers
 {
@@ -46,11 +47,11 @@ namespace HotelListing.API.Controllers
             {
                 return NotFound();
             }
-            var hotel = await _hotelsRepository.GetAsync(id);
 
+            var hotel = await _hotelsRepository.GetAsync(id);
             if (hotel == null)
             {
-                return NotFound();
+                throw new NotFoundException(nameof(GetHotel), id);
             }
 
             var record = _mapper.Map<HotelDto>(hotel);
@@ -70,7 +71,7 @@ namespace HotelListing.API.Controllers
             var hotel = await _hotelsRepository.GetAsync(id);
             if (hotel == null)
             {
-                return NotFound();
+                throw new NotFoundException(nameof(GetHotel), id);
             }
 
             try
@@ -119,7 +120,7 @@ namespace HotelListing.API.Controllers
             var hotel = await _hotelsRepository.GetAsync(id);
             if (hotel == null)
             {
-                return NotFound();
+                throw new NotFoundException(nameof(GetHotel), id);
             }
 
             await _hotelsRepository.DeleteAsync(id);
