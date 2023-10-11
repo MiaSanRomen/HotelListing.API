@@ -1,6 +1,9 @@
 # HotelListing
 ## HotelListing.API - web API, created on C# language using ASP.NET Core Web API.
 App working with MS SQL.
+
+http://rbrizinski-001-site1.gtempurl.com/swagger/index.html
+
 In development used and realised:
 ```
 -A Data Driven API using Entity Framework .NET 6
