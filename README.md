@@ -17,3 +17,5 @@ In development used and realised:
 -API Versioning
 -API Caching
 ```
+
+- Done in 2022
